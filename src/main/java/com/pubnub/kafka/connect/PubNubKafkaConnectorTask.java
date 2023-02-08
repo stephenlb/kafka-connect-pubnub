@@ -1,4 +1,4 @@
-package tutorial.buildon.aws.streaming.kafka;
+package com.pubnub.kafka.connect;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,18 +15,18 @@ import org.apache.kafka.connect.data.Struct;
 import org.apache.kafka.connect.source.SourceRecord;
 import org.apache.kafka.connect.source.SourceTask;
 
-import static tutorial.buildon.aws.streaming.kafka.MyFirstKafkaConnectorConfig.*;
+import static com.pubnub.kafka.connect.PubNubKafkaConnectorConfig.*;
 
-public class MyFirstKafkaConnectorTask extends SourceTask {
+public class PubNubKafkaConnectorTask extends SourceTask {
 
     private static final String STRING_COLUMN = "string-column";
     private static final String NUMERIC_COLUMN = "numeric-column";
     private static final String BOOLEAN_COLUMN = "boolean-column";
 
     private final Random random = new Random(System.currentTimeMillis());
-    private final Logger log = LoggerFactory.getLogger(MyFirstKafkaConnectorTask.class);
+    private final Logger log = LoggerFactory.getLogger(PubNubKafkaConnectorTask.class);
 
-    private MyFirstKafkaConnectorConfig config;
+    private PubNubKafkaConnectorConfig config;
     private int taskSleepTimeout;
     private List<String> sources;
     private Schema recordSchema;
@@ -38,7 +38,7 @@ public class MyFirstKafkaConnectorTask extends SourceTask {
 
     @Override
     public void start(Map<String, String> properties) {
-        config = new MyFirstKafkaConnectorConfig(properties);
+        config = new PubNubKafkaConnectorConfig(properties);
         taskSleepTimeout = config.getInt(TASK_SLEEP_TIMEOUT_CONFIG);
         String sourcesStr = properties.get("sources");
         sources = Arrays.asList(sourcesStr.split(","));

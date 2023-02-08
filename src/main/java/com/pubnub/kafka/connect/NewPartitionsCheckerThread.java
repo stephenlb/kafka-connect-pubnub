@@ -1,4 +1,4 @@
-package tutorial.buildon.aws.streaming.kafka;
+package com.pubnub.kafka.connect;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package tutorial.buildon.aws.streaming.kafka;
+package com.pubnub.kafka.connect;
 
 import java.util.Map;
 
@@ -7,9 +7,9 @@ import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.common.config.ConfigDef.Importance;
 import org.apache.kafka.common.config.ConfigDef.Type;
 
-public class MyFirstKafkaConnectorConfig extends AbstractConfig {
+public class PubNubKafkaConnectorConfig extends AbstractConfig {
 
-    public MyFirstKafkaConnectorConfig(final Map<?, ?> originalProps) {
+    public PubNubKafkaConnectorConfig(final Map<?, ?> originalProps) {
         super(CONFIG_DEF, originalProps);
     }
 

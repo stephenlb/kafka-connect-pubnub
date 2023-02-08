@@ -1,4 +1,4 @@
-package tutorial.buildon.aws.streaming.kafka;
+package com.pubnub.kafka.connect;
 
 import org.apache.kafka.connect.source.SourceRecord;
 import org.junit.Test;
@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static tutorial.buildon.aws.streaming.kafka.MyFirstKafkaConnectorConfig.*;
+import static com.pubnub.kafka.connect.PubNubKafkaConnectorConfig.*;
 
-public class MyFirstConnectorTaskTest {
+public class PubNubConnectorTaskTest {
 
     @Test
     public void taskVersionShouldMatch() {
         String version = PropertiesUtil.getConnectorVersion();
-        assertEquals(version, new MyFirstKafkaConnectorTask().version());
+        assertEquals(version, new PubNubKafkaConnectorTask().version());
     }
 
     @Test
@@ -26,7 +26,7 @@ public class MyFirstConnectorTaskTest {
         connectorProps.put(FIRST_REQUIRED_PARAM_CONFIG, "Kafka");
         connectorProps.put(SECOND_REQUIRED_PARAM_CONFIG, "Connect");
         Map<String, String> taskProps = getTaskProps(connectorProps);
-        MyFirstKafkaConnectorTask task = new MyFirstKafkaConnectorTask();
+        PubNubKafkaConnectorTask task = new PubNubKafkaConnectorTask();
         assertDoesNotThrow(() -> {
             task.start(taskProps);
             List<SourceRecord> records = task.poll();
@@ -35,7 +35,7 @@ public class MyFirstConnectorTaskTest {
     }
 
     private Map<String, String> getTaskProps(Map<String, String> connectorProps) {
-        MyFirstKafkaConnector connector = new MyFirstKafkaConnector();
+        PubNubKafkaConnector connector = new PubNubKafkaConnector();
         connector.start(connectorProps);
         List<Map<String, String>> taskConfigs = connector.taskConfigs(1);
         return taskConfigs.get(0);

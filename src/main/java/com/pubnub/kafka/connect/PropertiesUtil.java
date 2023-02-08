@@ -1,4 +1,4 @@
-package tutorial.buildon.aws.streaming.kafka;
+package com.pubnub.kafka.connect;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -11,7 +11,7 @@ public final class PropertiesUtil {
     private static final String CONNECTOR_VERSION = "connector.version";
 
     private static Logger log = LoggerFactory.getLogger(PropertiesUtil.class);
-    private static String propertiesFile = "/my-first-kafka-connector.properties";
+    private static String propertiesFile = "/pubnub-kafka-connector.properties";
     private static Properties properties;
 
     static {

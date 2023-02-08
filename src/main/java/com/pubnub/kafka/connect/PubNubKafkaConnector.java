@@ -1,4 +1,4 @@
-package tutorial.buildon.aws.streaming.kafka;
+package com.pubnub.kafka.connect;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,14 +17,14 @@ import org.apache.kafka.connect.errors.ConnectException;
 import org.apache.kafka.connect.source.SourceConnector;
 import org.apache.kafka.connect.util.ConnectorUtils;
 
-import static tutorial.buildon.aws.streaming.kafka.MyFirstKafkaConnectorConfig.*;
+import static com.pubnub.kafka.connect.PubNubKafkaConnectorConfig.*;
 
-public class MyFirstKafkaConnector extends SourceConnector {
+public class PubNubKafkaConnector extends SourceConnector {
 
-    private final Logger log = LoggerFactory.getLogger(MyFirstKafkaConnector.class);
+    private final Logger log = LoggerFactory.getLogger(PubNubKafkaConnector.class);
 
     private Map<String, String> originalProps;
-    private MyFirstKafkaConnectorConfig config;
+    private PubNubKafkaConnectorConfig config;
     private NewPartitionsCheckerThread checker;
 
     @Override
@@ -39,7 +39,7 @@ public class MyFirstKafkaConnector extends SourceConnector {
 
     @Override
     public Class<? extends Task> taskClass() {
-        return MyFirstKafkaConnectorTask.class;
+        return PubNubKafkaConnectorTask.class;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class MyFirstKafkaConnector extends SourceConnector {
     @Override
     public void start(Map<String, String> originalProps) {
         this.originalProps = originalProps;
-        config = new MyFirstKafkaConnectorConfig(originalProps);
+        config = new PubNubKafkaConnectorConfig(originalProps);
         int monitorThreadTimeout = config.getInt(MONITOR_THREAD_TIMEOUT_CONFIG);
         checker = new NewPartitionsCheckerThread(context, monitorThreadTimeout);
         checker.start();
