@@ -1,7 +1,9 @@
 {
     "name": "pubnub-sink-connector",
     "config": {
-        "topics":"pubnub",
+        "topics":"pubnub1",
+        "value.deserializer":"custom.class.serialization.JsonDeserializer",
+        "value.serializer":"custom.class.serialization.JsonSerializer",
         "connector.class": "com.pubnub.kafka.connect.PubNubKafkaSinkConnector",
         "first.required.param": "Kafka",
         "second.required.param": "Connect",
