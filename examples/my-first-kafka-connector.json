@@ -1,0 +1,9 @@
+{
+    "name": "kafka-connector-pubnub",
+    "config": {
+        "connector.class": "tutorial.buildon.aws.streaming.kafka.MyFirstKafkaConnector",
+        "first.required.param": "Kafka",
+        "second.required.param": "Connect",
+        "tasks.max": "1"
+    }
+}
