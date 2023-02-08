@@ -19,9 +19,9 @@ import org.apache.kafka.connect.util.ConnectorUtils;
 
 import static com.pubnub.kafka.connect.PubNubKafkaConnectorConfig.*;
 
-public class PubNubKafkaConnector extends SourceConnector {
+public class PubNubKafkaSourceConnector extends SourceConnector {
 
-    private final Logger log = LoggerFactory.getLogger(PubNubKafkaConnector.class);
+    private final Logger log = LoggerFactory.getLogger(PubNubKafkaSourceConnector.class);
 
     private Map<String, String> originalProps;
     private PubNubKafkaConnectorConfig config;
@@ -39,7 +39,7 @@ public class PubNubKafkaConnector extends SourceConnector {
 
     @Override
     public Class<? extends Task> taskClass() {
-        return PubNubKafkaConnectorTask.class;
+        return PubNubKafkaSourceConnectorTask.class;
     }
 
     @Override

@@ -5,6 +5,6 @@
         "connector.class": "com.pubnub.kafka.connect.PubNubKafkaSinkConnector",
         "first.required.param": "Kafka",
         "second.required.param": "Connect",
-        "tasks.max": "3"
+        "tasks.max": "1"
     }
 }

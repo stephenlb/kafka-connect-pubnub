@@ -8,9 +8,8 @@ import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.kafka.connect.data.Schema;
-import org.apache.kafka.connect.data.SchemaBuilder;
-import org.apache.kafka.connect.data.Struct;
+import org.apache.kafka.clients.consumer.OffsetAndMetadata;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.connect.sink.SinkRecord;
 import org.apache.kafka.connect.sink.SinkTask;
 
@@ -46,13 +45,18 @@ public class PubNubKafkaSinkConnectorTask extends SinkTask {
     public void put(Collection<SinkRecord> records) {
         for (final SinkRecord record : records) {
             //pubnub.publishFrom(record);
-            log.warn("PUBLISHING TO PUBNUB");
+            log.error("PUBLISHING TO PUBNUB");
         }
     }
 
     @Override
+    public void flush(Map<TopicPartition, OffsetAndMetadata> map) {
+        return;
+    }
+
+    @Override
     public void stop() {
-        log.warn("Stopping PubNub Sink Connector Task");
+        log.error("Stopping PubNub Sink Connector Task");
     }
 
 }

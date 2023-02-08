@@ -39,7 +39,7 @@ public class PubNubKafkaSinkConnector extends SinkConnector {
 
     @Override
     public Class<? extends Task> taskClass() {
-        return PubNubKafkaConnectorTask.class;
+        return PubNubKafkaSinkConnectorTask.class;
     }
 
     @Override

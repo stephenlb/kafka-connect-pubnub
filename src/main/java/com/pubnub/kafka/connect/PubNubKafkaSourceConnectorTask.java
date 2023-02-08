@@ -17,14 +17,14 @@ import org.apache.kafka.connect.source.SourceTask;
 
 import static com.pubnub.kafka.connect.PubNubKafkaConnectorConfig.*;
 
-public class PubNubKafkaConnectorTask extends SourceTask {
+public class PubNubKafkaSourceConnectorTask extends SourceTask {
 
     private static final String STRING_COLUMN = "string-column";
     private static final String NUMERIC_COLUMN = "numeric-column";
     private static final String BOOLEAN_COLUMN = "boolean-column";
 
     private final Random random = new Random(System.currentTimeMillis());
-    private final Logger log = LoggerFactory.getLogger(PubNubKafkaConnectorTask.class);
+    private final Logger log = LoggerFactory.getLogger(PubNubKafkaSourceConnectorTask.class);
 
     private PubNubKafkaConnectorConfig config;
     private int taskSleepTimeout;

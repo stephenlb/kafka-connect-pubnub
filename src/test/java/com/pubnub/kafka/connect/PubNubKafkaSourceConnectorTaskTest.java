@@ -12,12 +12,12 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static com.pubnub.kafka.connect.PubNubKafkaConnectorConfig.*;
 
-public class PubNubConnectorTaskTest {
+public class PubNubKafkaSourceConnectorTaskTest {
 
     @Test
     public void taskVersionShouldMatch() {
         String version = PropertiesUtil.getConnectorVersion();
-        assertEquals(version, new PubNubKafkaConnectorTask().version());
+        assertEquals(version, new PubNubKafkaSourceConnectorTask().version());
     }
 
     @Test
@@ -26,7 +26,7 @@ public class PubNubConnectorTaskTest {
         connectorProps.put(FIRST_REQUIRED_PARAM_CONFIG, "Kafka");
         connectorProps.put(SECOND_REQUIRED_PARAM_CONFIG, "Connect");
         Map<String, String> taskProps = getTaskProps(connectorProps);
-        PubNubKafkaConnectorTask task = new PubNubKafkaConnectorTask();
+        PubNubKafkaSourceConnectorTask task = new PubNubKafkaSourceConnectorTask();
         assertDoesNotThrow(() -> {
             task.start(taskProps);
             List<SourceRecord> records = task.poll();
@@ -35,7 +35,7 @@ public class PubNubConnectorTaskTest {
     }
 
     private Map<String, String> getTaskProps(Map<String, String> connectorProps) {
-        PubNubKafkaConnector connector = new PubNubKafkaConnector();
+        PubNubKafkaSourceConnector connector = new PubNubKafkaSourceConnector();
         connector.start(connectorProps);
         List<Map<String, String>> taskConfigs = connector.taskConfigs(1);
         return taskConfigs.get(0);

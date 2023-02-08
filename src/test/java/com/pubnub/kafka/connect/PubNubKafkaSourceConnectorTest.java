@@ -12,18 +12,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static com.pubnub.kafka.connect.PubNubKafkaConnectorConfig.*;
 
-public class PubNubConnectorTest {
+public class PubNubKafkaSourceConnectorTest {
 
     @Test
     public void connectorVersionShouldMatch() {
         String version = PropertiesUtil.getConnectorVersion();
-        assertEquals(version, new PubNubKafkaConnector().version());
+        assertEquals(version, new PubNubKafkaSourceConnector().version());
     }
 
     @Test
     public void checkClassTask() {
-        Class<? extends Task> taskClass = new PubNubKafkaConnector().taskClass();
-        assertEquals(PubNubKafkaConnectorTask.class, taskClass);
+        Class<? extends Task> taskClass = new PubNubKafkaSourceConnector().taskClass();
+        assertEquals(PubNubKafkaSourceConnectorTask.class, taskClass);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class PubNubConnectorTest {
             Map<String, String> props = new HashMap<>();
             props.put(FIRST_NONREQUIRED_PARAM_CONFIG, value);
             props.put(SECOND_NONREQUIRED_PARAM_CONFIG, value);
-            new PubNubKafkaConnector().validate(props);
+            new PubNubKafkaSourceConnector().validate(props);
         });
     }
 
