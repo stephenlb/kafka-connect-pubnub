@@ -8,7 +8,6 @@ import java.util.Map;
 import com.pubnub.api.UserId;
 import com.pubnub.api.PubNub;
 import com.pubnub.api.PNConfiguration;
-import com.pubnub.api.PubNubException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,15 +44,15 @@ public class PubNubKafkaSinkConnectorTask extends SinkTask {
             PNConfiguration pnConfiguration = new PNConfiguration(userId);
             pnConfiguration.setSubscribeKey("demo");
             pnConfiguration.setPublishKey("demo");
-            //pnConfiguration.setSecretKey("demo");
+            ////////pnConfiguration.setSecretKey("demo");
             pubnub = new PubNub(pnConfiguration);
-            //TODO remove and replace with other.
+            //////////TODO remove and replace with other.
             taskSleepTimeout = config.getInt(TASK_SLEEP_TIMEOUT_CONFIG);
             String sourcesStr = properties.get("sources"); // "channels"
             sources = Arrays.asList(sourcesStr.split(","));
-            //TODO remove and replace with other.
+            //////////TODO remove and replace with other.
         }
-        catch(PubNubException error) {
+        catch(Exception error) {
             log.error("Unable to initialize PubNub Connection", error);
         }
     }
