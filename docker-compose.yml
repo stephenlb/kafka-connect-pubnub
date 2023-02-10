@@ -93,7 +93,7 @@ services:
       - |
         while true
           #do echo '{"msg": "Hi!", "id": '$(date +%s)'}' | /usr/bin/kafka-console-producer --bootstrap-server kafka:29092 --topic
-          do echo $(date +%s) | /usr/bin/kafka-console-producer --bootstrap-server kafka:29092 --topic pubnub1
+          do echo $(date +%s) | /usr/bin/kafka-console-producer --bootstrap-server kafka:29092 --topic pubnub
           sleep 1
         done
     depends_on:
@@ -106,7 +106,7 @@ services:
     image: confluentinc/cp-kafka:7.3.1
     hostname: consumer
     container_name: consumer
-    command: "bash -c 'while true; do /usr/bin/kafka-console-consumer --bootstrap-server kafka:29092 --topic pubnub1; sleep 1; done'"
+    command: "bash -c 'while true; do /usr/bin/kafka-console-consumer --bootstrap-server kafka:29092 --topic pubnub; sleep 1; done'"
     depends_on:
       connect:
         condition: service_healthy

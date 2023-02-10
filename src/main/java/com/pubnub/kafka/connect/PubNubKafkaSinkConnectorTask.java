@@ -28,7 +28,6 @@ public class PubNubKafkaSinkConnectorTask extends SinkTask {
 
     private PubNub pubnub;
     private PubNubKafkaConnectorConfig config;
-    private int taskSleepTimeout;
     private List<String> sources;
 
     @Override
@@ -41,16 +40,18 @@ public class PubNubKafkaSinkConnectorTask extends SinkTask {
         config = new PubNubKafkaConnectorConfig(properties);
         try {
             final UserId userId = new UserId("myUniqueUserId");
+            String publishKey = properties.get("pubnub.publish_key");
+            String subscribeKey = properties.get("pubnub.subscribe_key");
+            String secretKey = properties.get("pubnub.secret_key");
+
             PNConfiguration pnConfiguration = new PNConfiguration(userId);
-            pnConfiguration.setSubscribeKey("demo");
-            pnConfiguration.setPublishKey("demo");
-            ////////pnConfiguration.setSecretKey("demo");
+            pnConfiguration.setPublishKey(publishKey);
+            pnConfiguration.setSubscribeKey(subscribeKey);
+            pnConfiguration.setSecretKey(secretKey);
             pubnub = new PubNub(pnConfiguration);
-            //////////TODO remove and replace with other.
-            taskSleepTimeout = config.getInt(TASK_SLEEP_TIMEOUT_CONFIG);
+
             String sourcesStr = properties.get("sources"); // "channels"
             sources = Arrays.asList(sourcesStr.split(","));
-            //////////TODO remove and replace with other.
         }
         catch(Exception error) {
             log.error("Unable to initialize PubNub Connection", error);
@@ -63,16 +64,10 @@ public class PubNubKafkaSinkConnectorTask extends SinkTask {
             .message(record.value())
             .async((result, publishStatus) -> {
                 if (publishStatus.isError()) {
-                    log.error(" ⛔️ PUBLISHING TO PUBNUB FAILED");
-                    // Message successfully published to specified channel.
+                    log.error("⛔️ PUBLISHING TO PUBNUB FAILED");
                 }
-                // Request processing failed.
                 else {
-                    log.info(" ✅ PUBLISHING TO PUBNUB Success!");
-                    // Handle message publish error
-                    // Check 'category' property to find out
-                    // issues because of which the request failed.
-                    // Request can be resent using: [status retry];
+                    log.info("✅ Channel: '{}' - Published to PubNub Successfully!", record.topic());
                 }
             });
     }
@@ -80,7 +75,6 @@ public class PubNubKafkaSinkConnectorTask extends SinkTask {
     @Override
     public void put(Collection<SinkRecord> records) {
         for (final SinkRecord record : records) {
-            log.info(" ->->-> PUBLISHING TO PUBNUB <-<-<- ");
             publish(record);
         }
     }

@@ -45,34 +45,6 @@ public class PubNubKafkaSourceConnector extends SourceConnector {
     @Override
     public Config validate(Map<String, String> connectorConfigs) {
         Config config = super.validate(connectorConfigs);
-        List<ConfigValue> configValues = config.configValues();
-        String firstNonRequiredParamValue = null;
-        String secondNonRequiredParamValue = null;
-        boolean specialCircumstanceDetected = false;
-        for (ConfigValue configValue : configValues) {
-            if (configValue.value() != null) {
-                if (configValue.name().equals(FIRST_NONREQUIRED_PARAM_CONFIG)) {
-                    firstNonRequiredParamValue = (String) configValue.value();
-                }
-                if (configValue.name().equals(SECOND_NONREQUIRED_PARAM_CONFIG)) {
-                    secondNonRequiredParamValue = (String) configValue.value();
-                }
-            }
-            if (firstNonRequiredParamValue != null &&
-                secondNonRequiredParamValue != null &&
-                firstNonRequiredParamValue.equals(secondNonRequiredParamValue)) {
-                specialCircumstanceDetected = true;
-                break;
-            }
-        }
-        if (specialCircumstanceDetected) {
-            throw new ConnectException(String.format(
-                "A special circumstance has been found in the "
-                + "connector configuration. The value of the "
-                + "properties '%s' or '%s' cannot be the same.",
-                FIRST_NONREQUIRED_PARAM_CONFIG,
-                SECOND_NONREQUIRED_PARAM_CONFIG));
-        }
         return config;
     }
 
@@ -80,7 +52,7 @@ public class PubNubKafkaSourceConnector extends SourceConnector {
     public void start(Map<String, String> originalProps) {
         this.originalProps = originalProps;
         config = new PubNubKafkaConnectorConfig(originalProps);
-        int monitorThreadTimeout = config.getInt(MONITOR_THREAD_TIMEOUT_CONFIG);
+        int monitorThreadTimeout = config.getInt("monitor.thread.timeout");
         checker = new NewPartitionsCheckerThread(context, monitorThreadTimeout);
         checker.start();
     }

@@ -31,8 +31,9 @@ public class PubNubKafkaSourceConnectorTest {
         final String value = "sameValue";
         assertThrows(ConnectException.class, () -> {
             Map<String, String> props = new HashMap<>();
-            props.put(FIRST_NONREQUIRED_PARAM_CONFIG, value);
-            props.put(SECOND_NONREQUIRED_PARAM_CONFIG, value);
+            props.put("pubnub.publish_key", value);
+            props.put("pubnub.subscribe_key", value);
+            props.put("pubnub.secret_key", value);
             new PubNubKafkaSourceConnector().validate(props);
         });
     }

@@ -23,8 +23,6 @@ public class PubNubConnectorConfigTest {
     public void checkingNonRequiredDefaults() {
         Map<String, String> props = new HashMap<>();
         PubNubKafkaConnectorConfig config = new PubNubKafkaConnectorConfig(props);
-        assertEquals("foo", config.getString(FIRST_NONREQUIRED_PARAM_CONFIG));
-        assertEquals("bar", config.getString(SECOND_NONREQUIRED_PARAM_CONFIG));
     }
 
 }

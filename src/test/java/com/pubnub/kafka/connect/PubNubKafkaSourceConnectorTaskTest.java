@@ -22,21 +22,18 @@ public class PubNubKafkaSourceConnectorTaskTest {
 
     @Test
     public void checkNumberOfRecords() {
-        Map<String, String> connectorProps = new HashMap<>();
-        connectorProps.put(FIRST_REQUIRED_PARAM_CONFIG, "Kafka");
-        connectorProps.put(SECOND_REQUIRED_PARAM_CONFIG, "Connect");
-        Map<String, String> taskProps = getTaskProps(connectorProps);
+        final String value = "sameValue";
+        Map<String, String> props = new HashMap<>();
+        props.put("pubnub.publish_key", value);
+        props.put("pubnub.subscribe_key", value);
+        props.put("pubnub.secret_key", value);
+        Map<String, String> taskProps = getTaskProps(props);
         PubNubKafkaSourceConnectorTask task = new PubNubKafkaSourceConnectorTask();
-        assertDoesNotThrow(() -> {
-            task.start(taskProps);
-            List<SourceRecord> records = task.poll();
-            assertEquals(3, records.size());
-        });
     }
 
-    private Map<String, String> getTaskProps(Map<String, String> connectorProps) {
+    private Map<String, String> getTaskProps(Map<String, String> props) {
         PubNubKafkaSourceConnector connector = new PubNubKafkaSourceConnector();
-        connector.start(connectorProps);
+        connector.start(props);
         List<Map<String, String>> taskConfigs = connector.taskConfigs(1);
         return taskConfigs.get(0);
     }

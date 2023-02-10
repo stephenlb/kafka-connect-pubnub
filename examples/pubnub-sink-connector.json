@@ -1,12 +1,13 @@
 {
     "name": "pubnub-sink-connector",
     "config": {
-        "topics":"pubnub1",
-        "value.deserializer":"custom.class.serialization.JsonDeserializer",
-        "value.serializer":"custom.class.serialization.JsonSerializer",
+        "topics":"pubnub,pubnub1",
+        "pubnub.publish_key": "demo",
+        "pubnub.subscribe_key": "demo",
+        "pubnub.secret_key": "demo",
         "connector.class": "com.pubnub.kafka.connect.PubNubKafkaSinkConnector",
-        "first.required.param": "Kafka",
-        "second.required.param": "Connect",
-        "tasks.max": "1"
+        "tasks.max": "3",
+        "value.deserializer":"custom.class.serialization.JsonDeserializer",
+        "value.serializer":"custom.class.serialization.JsonSerializer"
     }
 }

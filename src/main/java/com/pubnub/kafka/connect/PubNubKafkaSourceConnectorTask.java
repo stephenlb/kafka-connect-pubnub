@@ -39,7 +39,7 @@ public class PubNubKafkaSourceConnectorTask extends SourceTask {
     @Override
     public void start(Map<String, String> properties) {
         config = new PubNubKafkaConnectorConfig(properties);
-        taskSleepTimeout = config.getInt(TASK_SLEEP_TIMEOUT_CONFIG);
+        taskSleepTimeout = config.getInt("task.sleep.timeout");
         String sourcesStr = properties.get("sources");
         sources = Arrays.asList(sourcesStr.split(","));
         recordSchema = SchemaBuilder.struct()
