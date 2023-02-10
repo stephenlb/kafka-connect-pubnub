@@ -6,19 +6,7 @@ The Kafka topic name will match PubNub channel name.
 
 ### ✅ Requirements
 
-* [Java 11+](https://openjdk.org/install)
-* [Maven 3.8.6+](https://maven.apache.org/download.cgi)
 * [Docker](https://www.docker.com/get-started)
-
-## ⚙️  Building the connector
-
-* Build the Kafka Connect connector file.
-
-```bash
-mvn clean package
-```
-
-💡 A file named `target/pubnub-kafka-connector-1.0.jar` will be created.
 
 ## ⬆️  Starting the local environment
 
@@ -60,3 +48,16 @@ curl -X DELETE http://localhost:8083/connectors/pubnub-sink-connector
 ```bash
 docker compose down
 ```
+
+## ⚙️  Building the connector locally
+
+Build the Kafka Connect connector locally
+
+* [Java 11+](https://openjdk.org/install)
+* [Maven 3.8.6+](https://maven.apache.org/download.cgi)
+
+```bash
+mvn clean package
+```
+
+💡 A file named `target/pubnub-kafka-connector-1.x.jar` will be created.

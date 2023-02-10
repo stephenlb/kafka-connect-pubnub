@@ -27,6 +27,9 @@ services:
     volumes:
       - ./scripts/workaround.sh:/tmp/workaround.sh
     command: "bash -c '/tmp/workaround.sh && /etc/confluent/docker/run'"
+    depends_on:
+      builder:
+        condition: service_completed_successfully
     healthcheck:
       test: nc -zv kafka 9092 || exit 1
       interval: 5s
@@ -39,6 +42,8 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+      builder:
+        condition: service_completed_successfully
     ports:
       - 8083:8083
       - 8888:8888
@@ -69,6 +74,14 @@ services:
       interval: 5s
       retries: 10
       test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:8083
+
+  builder:
+    image: maven:3.8-openjdk-18
+    hostname: builder
+    container_name: builder
+    volumes:
+      - .:/usr/share/java/kafka-connector-pubnub
+    command: "bash -c 'cd /usr/share/java/kafka-connector-pubnub; mvn clean package'"
 
   producer:
     image: confluentinc/cp-kafka:7.3.1
