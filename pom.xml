@@ -5,7 +5,8 @@
   <groupId>kafka.connect.pubnub</groupId>
   <artifactId>kafka-connect-pubnub</artifactId>
   <description>PubNub Kafka Connector</description>
-  <version>1.0</version>
+  <version>1.1</version>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -16,6 +17,7 @@
     <testcontainers.version>1.17.6</testcontainers.version>
     <maven.compiler.plugin>3.10.1</maven.compiler.plugin>
   </properties>
+
   <dependencies>
     <dependency>
       <groupId>com.pubnub</groupId>
@@ -81,19 +83,46 @@
           <release>11</release>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-enforcer-plugin</artifactId>
         <version>3.2.1</version>
       </plugin>
+
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.4.1</version>
       </plugin>
+
+      <!--<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.4.2</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>id</descriptorRef>
+          </descriptorRefs>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>-->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.3.0</version>
         <configuration>
+          <includes>
+            <include>*</include>
+          </includes>
           <archive>
             <manifest>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -102,23 +131,7 @@
           </archive>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>3.4.1</version>
-        <configuration>
-          <shadedArtifactAttached>true</shadedArtifactAttached>
-          <createDependencyReducedPom>false</createDependencyReducedPom>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+
       <plugin>
         <groupId>io.confluent</groupId>
         <artifactId>kafka-connect-maven-plugin</artifactId>
@@ -133,22 +146,23 @@
             <configuration>
               <title>PubNub Kafka Connector</title>
               <documentationUrl>https://github.com/pubnub/kafka-connect-pubnub</documentationUrl>
-              <description>The PubNub Kafka Connector is a sink connector used to publish data from Apache Kafka into PubNub.
+              <description>The PubNub Kafka Connector is a sink connector and source connector used to publish data from Apache Kafka into PubNub.
               </description>
-              <logo>logos/pubnub.png</logo>
               <supportProviderName>PubNub</supportProviderName>
               <supportUrl>https://pubnub.com/support</supportUrl>
               <supportSummary>
                 <![CDATA[This connector is <a href="https://support.pubnub.com/">supported by PubNub</a>]]>
               </supportSummary>
-              <supportLogo>logos/pubnub.png</supportLogo>
-              <ownerLogo>logos/pubnub.png</ownerLogo>
+              <logo>src/main/resources/pubnub.png</logo>
+              <supportLogo>src/main/resources/pubnub.png</supportLogo>
+              <ownerLogo>src/main/resources/pubnub.png</ownerLogo>
               <ownerUsername>pubnub</ownerUsername>
               <ownerType>organization</ownerType>
               <ownerName>PubNub</ownerName>
               <ownerUrl>https://pubnub.com/</ownerUrl>
               <componentTypes>
                 <componentType>sink</componentType>
+                <componentType>source</componentType>
               </componentTypes>
               <tags>
                 <tag>PubNub</tag>
@@ -161,6 +175,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>com.github.jcustenborder.kafka.connect</groupId>
         <artifactId>kafka-connect-documentation-plugin</artifactId>
