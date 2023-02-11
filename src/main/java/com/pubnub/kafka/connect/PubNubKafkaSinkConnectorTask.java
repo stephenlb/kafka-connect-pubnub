@@ -64,10 +64,10 @@ public class PubNubKafkaSinkConnectorTask extends SinkTask {
             .message(record.value())
             .async((result, publishStatus) -> {
                 if (publishStatus.isError()) {
-                    log.error("⛔️ PUBLISHING TO PUBNUB FAILED");
+                    log.error("⛔️ Channel: '{}' Message: '{}' Published to PubNub Failed!", record.topic());
                 }
                 else {
-                    log.info("✅ Channel: '{}' - Published to PubNub Successfully!", record.topic());
+                    log.info("✅ Channel: '{}' Message: '{}' Published to PubNub Successfully!", record.topic(), record.value());
                 }
             });
     }

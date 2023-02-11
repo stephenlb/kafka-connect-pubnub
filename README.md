@@ -55,6 +55,7 @@ Update the `topics` to match the topics you want to sink to PubNub.
     "name": "pubnub-sink-connector",
     "config": {
         "topics":"pubnub,pubnub1,pubnub2",
+        "topics.regex":"",
         "pubnub.publish_key": "demo",
         "pubnub.subscribe_key": "demo",
         "pubnub.secret_key": "demo",

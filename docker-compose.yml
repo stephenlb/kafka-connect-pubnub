@@ -27,9 +27,6 @@ services:
     volumes:
       - ./scripts/workaround.sh:/tmp/workaround.sh
     command: "bash -c '/tmp/workaround.sh && /etc/confluent/docker/run'"
-    depends_on:
-      builder:
-        condition: service_completed_successfully
     healthcheck:
       test: nc -zv kafka 9092 || exit 1
       interval: 5s
@@ -92,13 +89,13 @@ services:
       - -c
       - |
         while true
-          #do echo '{"msg": "Hi!", "id": '$(date +%s)'}' | /usr/bin/kafka-console-producer --bootstrap-server kafka:29092 --topic
-          do echo $(date +%s) | /usr/bin/kafka-console-producer --bootstrap-server kafka:29092 --topic pubnub
-          sleep 1
+          do echo '{"timestamp":'$(date +%s)'}' | \
+            /usr/bin/kafka-console-producer \
+            --bootstrap-server kafka:29092 \
+            --topic pubnub
+          sleep 0.01
         done
     depends_on:
-      connect:
-        condition: service_healthy
       kafka:
         condition: service_healthy
 
