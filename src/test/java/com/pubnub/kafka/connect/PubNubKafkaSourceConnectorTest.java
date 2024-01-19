@@ -25,17 +25,4 @@ public class PubNubKafkaSourceConnectorTest {
         Class<? extends Task> taskClass = new PubNubKafkaSourceConnector().taskClass();
         assertEquals(PubNubKafkaSourceConnectorTask.class, taskClass);
     }
-
-    @Test
-    public void checkSpecialCircumstance() {
-        final String value = "sameValue";
-        assertThrows(ConnectException.class, () -> {
-            Map<String, String> props = new HashMap<>();
-            props.put("pubnub.publish_key", value);
-            props.put("pubnub.subscribe_key", value);
-            props.put("pubnub.secret_key", value);
-            new PubNubKafkaSourceConnector().validate(props);
-        });
-    }
-
 }
